@@ -9,7 +9,15 @@ class ShowUserProfileUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute({ user_id }: IRequest): User {
-    // Complete aqui
+    const findIfUserExists = this.usersRepository.findById(user_id);
+
+    if (!findIfUserExists) {
+      throw new Error("Usuario inexistente");
+    } else {
+      const user = this.usersRepository.findById(user_id);
+
+      return user;
+    }
   }
 }
 
